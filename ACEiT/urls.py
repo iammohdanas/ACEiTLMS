@@ -26,6 +26,7 @@ urlpatterns = [
     path('base/',views.base,name='base'),
     
     path('',views.homepage,name="home"),
+    path('home/',views.homepage,name="home"),
 
     path('course/',views.single_course,name="single_course"),
 
