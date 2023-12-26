@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from app.EmailBackEnd import EmailBackEnd
+from django.contrib.auth import authenticate,login,logout
 
 
 def REGISTER(request):
@@ -27,3 +29,47 @@ def REGISTER(request):
         return redirect('login')
     
     return render(request,"registration/register.html")
+
+def DO_LOGIN(request):
+    if request.method=="POST":
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        print(email,password)
+
+        user = EmailBackEnd.authenticate(request,username=email,password=password)
+
+        if user!=None:
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request,'Email and Password are Invalid')
+            return redirect('login')
+    return render(request,"registration/login.html")
+
+
+def PROFILE(request):
+    return render(request,"registration/profile.html")
+
+def PROFILE_UPDATE(request):
+    if request.method=="POST":
+        usermame= request.POST.get('username')
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        user_id=request.user.id  #i.e. 1,2,3,4
+
+        user = User.objects.get(id=user_id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = usermame
+        user.email = email
+
+        
+
+        if password != None and password != "":
+            user.set_password(password)
+        user.save()
+        messages.success(request,'Profile is successfully updated.')
+        return redirect('profile')
+    return None

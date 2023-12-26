@@ -35,14 +35,16 @@
                 <!-- Login -->
                 <h3 class="mb-6">Log In to Your Skola Account!</h3>
 
+                {% include "components/msg.html" %}
                 <!-- Form Login -->
-                <form class="mb-5">
+                <form class="mb-5" method="POST" action="{% url 'doLogin' %}">
+                    {% csrf_token %}
                     <!-- Email -->
                     <div class="form-group mb-5">
                         <label for="modalSigninEmail1">
-                            Username or Email
+                            Email
                         </label>
-                        <input type="email" class="form-control" id="modalSigninEmail1" placeholder="creativelayers">
+                        <input type="email" class="form-control" id="modalSigninEmail1" placeholder="creativelayers" name="email">
                     </div>
 
                     <!-- Password -->
@@ -50,7 +52,7 @@
                         <label for="modalSigninPassword1">
                             Password
                         </label>
-                        <input type="password" class="form-control" id="modalSigninPassword1" placeholder="**********">
+                        <input type="password" class="form-control" id="modalSigninPassword1" placeholder="**********" name="password">
                     </div>
 
                     <div class="d-flex align-items-center mb-5 font-size-sm">
@@ -62,7 +64,7 @@
                         </div>
 
                         <div class="ms-auto">
-                            <a class="text-gray-800" href="recover.html">Forgot Password</a>
+                            <a class="text-gray-800" href="{% url 'password_reset' %}">Forgot Password</a>
                         </div>
                     </div>
 
@@ -74,7 +76,7 @@
 
                 <!-- Text -->
                 <p class="mb-0 font-size-sm text-center">
-                    Don't have an account? <a class="text-underline" href="register.html">Sign up</a>
+                    Don't have an account? <a class="text-underline" href="{% url 'register' %}">Sign up</a>
                 </p>
             </div>
         </div>
