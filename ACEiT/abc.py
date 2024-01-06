@@ -1,0 +1,2 @@
+a = "Streamlined testing with Jenkins integration, slashing manual efforts by 70%. Resolved Add Money and 3rd Party App issues, bolstered Paytm mobile security with OTP, SIM check. Leveraged Java in Appium for efficient automation. Crafted comprehensive test plans, fostering enhanced efficiency through collaboration."
+print(len(a))

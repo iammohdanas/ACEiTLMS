@@ -33,6 +33,8 @@ urlpatterns = [
 
     path('course/',views.single_course,name="single_course"),
 
+    path('product/filter-data',views.filter_data,name="filter-data"),
+
     path('contact',views.contact_us,name="contact_us"),
 
     path('about',views.about_us,name="about_us"),

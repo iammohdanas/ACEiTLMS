@@ -7,7 +7,9 @@ register = template.Library()
 
 def discount_calculation(price,discount):
     if discount is None or discount is 0:
-        return price
+        return 
+    
+    price
     sellprice = price
     sellprice = price - (price*discount/100)
     return math.floor(sellprice)
