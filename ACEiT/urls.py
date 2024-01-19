@@ -33,7 +33,11 @@ urlpatterns = [
 
     path('course/',views.single_course,name="single_course"),
 
-    path('product/filter-data',views.filter_data,name="filter-data"),
+    path("search",views.SEARCH_COURSE, name="search_course"),
+
+    path('courses/filter-data',views.filter_data,name="filter-data"),
+
+    path("404", views.PAGE_NOT_FOUND, name="404"),
 
     path('contact',views.contact_us,name="contact_us"),
 
@@ -47,7 +51,10 @@ urlpatterns = [
 
     path("accounts/profile", user_login.PROFILE,name='profile'),
 
-    path("accounts/profile/update",user_login.PROFILE_UPDATE,name="profile_update")
+    path("accounts/profile/update",user_login.PROFILE_UPDATE,name="profile_update"),
+
+    path("course/<slug:slug>", views.COURSE_DETAILS, name="course_details")
+
 
 
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
