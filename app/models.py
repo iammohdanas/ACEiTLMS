@@ -20,6 +20,7 @@ class Author(models.Model):
     author_profile = models.ImageField(upload_to="Media/author")
     name = models.CharField(max_length=100,null=True)
     about_author = models.TextField()
+    job_role = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.name
@@ -29,6 +30,12 @@ class Level(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Language(models.Model):
+    languages = models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return self.languages
 
 
 
@@ -49,6 +56,9 @@ class Course(models.Model):
     discount = models.IntegerField(null=True)
     slug = models.SlugField(default='',max_length=500, null=True, blank= True)
     status = models.CharField(choices=STATUS, max_length=100, null=True)
+    language = models.ForeignKey(Language,on_delete=models.CASCADE,null=True)
+    deadline = models.CharField(max_length=100,null=True)
+    certificate = models.BooleanField(null=True,default=False)
 
     def __str__(self):
         return self.title
@@ -89,3 +99,23 @@ class Requirements(models.Model):
 
     def __str__(self):
         return self.points
+    
+class Lesson(models.Model):
+    course = models.ForeignKey(Course, on_delete = models.CASCADE)
+    name = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name + " - " + self.course.title
+
+class Video(models.Model):
+    serial_number = models.IntegerField(null = True)
+    thumbnail = models.ImageField(upload_to="Media/Yt_Thumbnail",null = True)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson,on_delete=models.CASCADE)
+    title = models.CharField(max_length = 100)
+    youtube_id = models.CharField(max_length=100)
+    time_duration = models.IntegerField(null = True)
+    preview = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.title

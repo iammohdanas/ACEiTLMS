@@ -5,6 +5,8 @@ from app.models import Course
 from app.models import Level
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.db.models import Sum
+from app.models import Video
 
 
 def base(request):
@@ -34,6 +36,8 @@ def SEARCH_COURSE(request):
 
 def COURSE_DETAILS(request,slug):
     course = Course.objects.filter(slug=slug)
+    time_duration = Video.objects.filter(course__slug = slug).aggregate(sum=Sum('time_duration'))
+
     if course.exists():
         course=course.first()
     else:
@@ -41,7 +45,8 @@ def COURSE_DETAILS(request,slug):
     category = Categories.get_all_category(Categories)
     context = {
         'course':course,
-        'category':category
+        'category':category,
+        'time_duration':time_duration,
     }
     return render(request,"course/course_details.html",context)
 
